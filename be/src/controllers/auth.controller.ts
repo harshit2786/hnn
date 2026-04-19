@@ -57,7 +57,7 @@ export async function register(req: Request, res: Response) {
 
 export async function me(req: Request & { userId?: string }, res: Response) {
   const user = await prisma.user.findUnique({
-    where: { id: req.userId },
+    where: { id: req.userId! },
     select: { id: true, email: true, name: true, createdAt: true },
   });
 

@@ -82,7 +82,7 @@ export async function getAllPosts(req: AuthRequest, res: Response) {
 }
 
 export async function getPost(req: AuthRequest, res: Response) {
-  const { slug } = req.params;
+  const slug = req.params.slug as string;
   const isAuthor = !!req.userId;
 
   const post = await prisma.post.findFirst({
@@ -121,7 +121,7 @@ export async function createPost(req: AuthRequest, res: Response) {
       title,
       slug,
       content,
-      excerpt,
+      excerpt: excerpt ?? null,
       published,
       order,
       authorId: req.userId!,
@@ -136,7 +136,7 @@ export async function createPost(req: AuthRequest, res: Response) {
 }
 
 export async function updatePost(req: AuthRequest, res: Response) {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
   const existing = await prisma.post.findUnique({ where: { id } });
   if (!existing) {
@@ -157,24 +157,23 @@ export async function updatePost(req: AuthRequest, res: Response) {
     slug = await uniqueSlug(slugify(title), id);
   }
 
-  const updateData: Record<string, unknown> = {};
-  if (title !== undefined) updateData.title = title;
-  if (slug !== existing.slug) updateData.slug = slug;
-  if (content !== undefined) updateData.content = content;
-  if (excerpt !== undefined) updateData.excerpt = excerpt;
-  if (published !== undefined) updateData.published = published;
-
   if (tags !== undefined) {
     const upserted = await upsertTags(tags);
     await prisma.postTag.deleteMany({ where: { postId: id } });
-    updateData.tags = {
-      create: upserted.map((tag) => ({ tagId: tag.id })),
-    };
+    await prisma.postTag.createMany({
+      data: upserted.map((tag) => ({ postId: id, tagId: tag.id })),
+    });
   }
 
   const post = await prisma.post.update({
     where: { id },
-    data: updateData,
+    data: {
+      ...(title !== undefined && { title }),
+      ...(slug !== existing.slug && { slug }),
+      ...(content !== undefined && { content }),
+      ...(excerpt !== undefined && { excerpt: excerpt ?? null }),
+      ...(published !== undefined && { published }),
+    },
     include: { tags: { include: { tag: true } } },
   });
 
@@ -182,7 +181,7 @@ export async function updatePost(req: AuthRequest, res: Response) {
 }
 
 export async function deletePost(req: AuthRequest, res: Response) {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
   const existing = await prisma.post.findUnique({ where: { id } });
   if (!existing) {
