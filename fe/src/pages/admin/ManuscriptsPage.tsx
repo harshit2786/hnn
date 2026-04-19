@@ -98,8 +98,8 @@ export default function ManuscriptsPage() {
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
 
   useEffect(() => {
-    api.get("/posts", { params: { limit: 100 } })
-      .then(({ data }) => setPosts(data.data))
+    api.get("/posts/admin/all")
+      .then(({ data }) => setPosts(data))
       .finally(() => setLoading(false));
   }, []);
 

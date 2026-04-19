@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getAllPosts,
+  getAllPostsAdmin,
   getPost,
   createPost,
   updatePost,
@@ -19,6 +20,7 @@ router.get("/tags", getAllTags);
 router.get("/:slug", optionalAuth, getPost);
 
 // Protected routes (author only)
+router.get("/admin/all", authenticate, getAllPostsAdmin);
 router.post("/", authenticate, createPost);
 router.put("/reorder", authenticate, reorderPosts);
 router.put("/:id", authenticate, updatePost);

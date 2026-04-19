@@ -211,6 +211,20 @@ export async function reorderPosts(req: AuthRequest, res: Response) {
   res.json({ message: "Posts reordered" });
 }
 
+export async function getAllPostsAdmin(_req: AuthRequest, res: Response) {
+  const posts = await prisma.post.findMany({
+    orderBy: { order: "asc" },
+    include: {
+      tags: { include: { tag: true } },
+      author: { select: { name: true } },
+    },
+  });
+
+  res.json(
+    posts.map((p) => ({ ...p, tags: p.tags.map((pt) => pt.tag.name) }))
+  );
+}
+
 export async function getAllTags(_req: AuthRequest, res: Response) {
   const tags = await prisma.tag.findMany({
     include: { _count: { select: { posts: true } } },
