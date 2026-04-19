@@ -4,7 +4,7 @@ import Navbar from "./components/layout/Navbar";
 import ArchivePage from "./pages/ArchivePage";
 import PostPage from "./pages/PostPage";
 import AboutPage from "./pages/AboutPage";
-import PortfolioPage from "./pages/PortfolioPage";
+// import PortfolioPage from "./pages/PortfolioPage";
 import LoginPage from "./pages/LoginPage";
 import ManuscriptsPage from "./pages/admin/ManuscriptsPage";
 import EditorPage from "./pages/admin/EditorPage";
@@ -50,7 +50,7 @@ export default function App() {
             <Route path="/" element={<ArchivePage />} />
             <Route path="/post/:slug" element={<PostPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
+            {/* <Route path="/portfolio" element={<PortfolioPage />} /> */}
           </Route>
 
           {/* Login */}

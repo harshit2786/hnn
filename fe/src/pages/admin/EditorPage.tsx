@@ -39,7 +39,7 @@ export default function EditorPage() {
       const body = {
         title,
         content,
-        excerpt: excerpt || undefined,
+        excerpt: excerpt.trim() || null,
         tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
         ...(publish !== undefined ? { published: publish } : {}),
       };

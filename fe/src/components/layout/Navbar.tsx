@@ -34,7 +34,7 @@ export default function Navbar() {
         <nav className="hidden sm:flex items-center gap-7 text-sm">
           <NavLink to="/" end className={navClass}>Archive</NavLink>
           <NavLink to="/about" className={navClass}>About</NavLink>
-          <NavLink to="/portfolio" className={navClass}>Portfolio</NavLink>
+          {/* <NavLink to="/portfolio" className={navClass}>Portfolio</NavLink> */}
           {user && <NavLink to="/admin" className={navClass}>Manuscripts</NavLink>}
         </nav>
 
@@ -53,7 +53,7 @@ export default function Navbar() {
         <div className="sm:hidden border-t border-border bg-background px-6 py-4 flex flex-col gap-4 text-sm">
           <NavLink to="/" end className={navClass} onClick={() => setOpen(false)}>Archive</NavLink>
           <NavLink to="/about" className={navClass} onClick={() => setOpen(false)}>About</NavLink>
-          <NavLink to="/portfolio" className={navClass} onClick={() => setOpen(false)}>Portfolio</NavLink>
+          {/* <NavLink to="/portfolio" className={navClass} onClick={() => setOpen(false)}>Portfolio</NavLink> */}
           {user && (
             <NavLink to="/admin" className={navClass} onClick={() => setOpen(false)}>
               Manuscripts

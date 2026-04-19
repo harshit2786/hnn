@@ -2,8 +2,14 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
+import TextAlign from "@tiptap/extension-text-align";
+import Underline from "@tiptap/extension-underline";
+import { Extension } from "@tiptap/core";
 import {
-  Bold, Italic, Heading2, Heading3, Quote, List, ListOrdered, Minus,
+  Bold, Italic, Underline as UnderlineIcon, Strikethrough,
+  Heading2, Heading3, Quote, List, ListOrdered, Minus,
+  AlignLeft, AlignCenter, AlignRight, Undo2, Redo2,
+  IndentIncrease, IndentDecrease,
 } from "lucide-react";
 
 interface Props {
@@ -35,12 +41,88 @@ function ToolbarButton({ onClick, active, title, children }: ToolbarButtonProps)
   );
 }
 
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    indent: {
+      indent: () => ReturnType;
+      outdent: () => ReturnType;
+    };
+  }
+}
+
+const IndentExtension = Extension.create({
+  name: "indent",
+  addOptions() {
+    return { types: ["paragraph", "heading"], step: 24, max: 120 };
+  },
+  addGlobalAttributes() {
+    return [{
+      types: this.options.types as string[],
+      attributes: {
+        indent: {
+          default: 0,
+          parseHTML: (el: HTMLElement) => parseInt(el.style.marginLeft) || 0,
+          renderHTML: (attrs: Record<string, number>) =>
+            attrs.indent > 0 ? { style: `margin-left: ${attrs.indent}px` } : {},
+        },
+      },
+    }];
+  },
+  addCommands() {
+    return {
+      indent:
+        () =>
+        ({ tr, state, dispatch }) => {
+          const { from, to } = state.selection;
+          let changed = false;
+          state.doc.nodesBetween(from, to, (node, pos) => {
+            if ((this.options.types as string[]).includes(node.type.name)) {
+              const next = Math.min((node.attrs.indent as number || 0) + this.options.step, this.options.max);
+              if (next !== node.attrs.indent) {
+                tr.setNodeMarkup(pos, undefined, { ...node.attrs, indent: next });
+                changed = true;
+              }
+            }
+          });
+          if (changed && dispatch) dispatch(tr);
+          return changed;
+        },
+      outdent:
+        () =>
+        ({ tr, state, dispatch }) => {
+          const { from, to } = state.selection;
+          let changed = false;
+          state.doc.nodesBetween(from, to, (node, pos) => {
+            if ((this.options.types as string[]).includes(node.type.name)) {
+              const next = Math.max((node.attrs.indent as number || 0) - this.options.step, 0);
+              if (next !== node.attrs.indent) {
+                tr.setNodeMarkup(pos, undefined, { ...node.attrs, indent: next });
+                changed = true;
+              }
+            }
+          });
+          if (changed && dispatch) dispatch(tr);
+          return changed;
+        },
+    };
+  },
+  addKeyboardShortcuts() {
+    return {
+      Tab: () => this.editor.commands.indent(),
+      "Shift-Tab": () => this.editor.commands.outdent(),
+    };
+  },
+});
+
 export default function TipTapEditor({ content, onChange }: Props) {
   const editor = useEditor({
     extensions: [
       StarterKit,
       Typography,
+      Underline,
+      IndentExtension,
       Placeholder.configure({ placeholder: "Begin your entry here…" }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
     content,
     onUpdate({ editor }) {
@@ -72,6 +154,20 @@ export default function TipTapEditor({ content, onChange }: Props) {
           title="Italic"
         >
           <Italic size={14} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          active={editor.isActive("underline")}
+          title="Underline"
+        >
+          <UnderlineIcon size={14} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          active={editor.isActive("strike")}
+          title="Strikethrough"
+        >
+          <Strikethrough size={14} />
         </ToolbarButton>
 
         <div className="w-px h-4 bg-border mx-1" />
@@ -119,6 +215,60 @@ export default function TipTapEditor({ content, onChange }: Props) {
           title="Divider"
         >
           <Minus size={14} />
+        </ToolbarButton>
+
+        <div className="w-px h-4 bg-border mx-1" />
+
+        <ToolbarButton
+          onClick={() => editor.chain().focus().outdent().run()}
+          title="Decrease indent"
+        >
+          <IndentDecrease size={14} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().indent().run()}
+          title="Increase indent"
+        >
+          <IndentIncrease size={14} />
+        </ToolbarButton>
+
+        <div className="w-px h-4 bg-border mx-1" />
+
+        <ToolbarButton
+          onClick={() => editor.chain().focus().setTextAlign("left").run()}
+          active={editor.isActive({ textAlign: "left" })}
+          title="Align left"
+        >
+          <AlignLeft size={14} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().setTextAlign("center").run()}
+          active={editor.isActive({ textAlign: "center" })}
+          title="Align center"
+        >
+          <AlignCenter size={14} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().setTextAlign("right").run()}
+          active={editor.isActive({ textAlign: "right" })}
+          title="Align right"
+        >
+          <AlignRight size={14} />
+        </ToolbarButton>
+
+        <div className="w-px h-4 bg-border mx-1" />
+
+        <ToolbarButton
+          onClick={() => editor.chain().focus().undo().run()}
+          title="Undo"
+        >
+          <Undo2 size={14} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().redo().run()}
+          title="Redo"
+        >
+          <Redo2 size={14} />
         </ToolbarButton>
       </div>
 

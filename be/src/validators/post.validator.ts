@@ -3,7 +3,7 @@ import { z } from "zod";
 export const createPostSchema = z.object({
   title: z.string().min(1),
   content: z.string().min(1),
-  excerpt: z.string().optional(),
+  excerpt: z.string().nullable().optional(),
   published: z.boolean().optional().default(false),
   tags: z.array(z.string()).optional().default([]),
 });

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../lib/api";
 import type { PaginatedPosts, Post } from "../types";
-import { wordCount, toRomanYear, formatDate } from "../lib/utils";
+import { formatDate } from "../lib/utils";
 
 function groupByYear(posts: Post[]): [number, Post[]][] {
   const map = new Map<number, Post[]>();
@@ -58,30 +58,18 @@ export default function ArchivePage() {
       ) : (
         groups.map(([year, yearPosts]) => (
           <section key={year} className="mb-14">
-            {/* Year label */}
-            <p className="font-serif text-xl sm:text-2xl italic text-muted-foreground mb-4 sm:mb-0">
-              {toRomanYear(year)}
-            </p>
-
-            <div className="sm:grid sm:grid-cols-[160px_1fr] sm:gap-8">
-              {/* spacer on desktop to align under year */}
-              <div className="hidden sm:block" />
-
-              <div className="divide-y divide-border">
-                {yearPosts.map((post) => (
+            <div className="divide-y divide-border">
+              {yearPosts.map((post) => (
                   <article key={post.id} className="py-6 sm:py-8">
                     {/* Mobile: meta row above title */}
                     <div className="flex items-center gap-3 mb-2 sm:hidden">
                       <span className="text-xs text-muted-foreground">{formatDate(post.createdAt)}</span>
-                      <span className="text-xs text-muted-foreground/50">·</span>
-                      <span className="text-xs text-muted-foreground">{wordCount(post.content).toLocaleString()} words</span>
                     </div>
 
                     {/* Desktop: 3-col layout */}
                     <div className="hidden sm:grid sm:grid-cols-[100px_1fr_auto] sm:gap-6 sm:items-start">
                       <div>
                         <p className="text-xs text-muted-foreground leading-relaxed">{formatDate(post.createdAt)}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{wordCount(post.content).toLocaleString()} words</p>
                       </div>
                       <div>
                         <Link
@@ -123,8 +111,7 @@ export default function ArchivePage() {
                       </div>
                     </div>
                   </article>
-                ))}
-              </div>
+              ))}
             </div>
           </section>
         ))
