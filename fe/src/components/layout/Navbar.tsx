@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
+import Logo from "../Logo";
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -22,9 +23,10 @@ export default function Navbar() {
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link
           to="/"
-          className="font-serif text-lg font-normal tracking-wide text-foreground"
+          className="flex items-center gap-2 font-serif text-lg font-normal tracking-wide text-foreground"
           onClick={() => setOpen(false)}
         >
+          <Logo size={26} />
           Hearts & Notes
         </Link>
 

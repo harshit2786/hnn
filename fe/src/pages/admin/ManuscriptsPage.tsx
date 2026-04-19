@@ -20,6 +20,7 @@ import api from "../../lib/api";
 import type { Post } from "../../types";
 import { formatDate } from "../../lib/utils";
 import { useAuth } from "../../hooks/useAuth";
+import Logo from "../../components/Logo";
 
 function SortableRow({ post, onDelete }: { post: Post; onDelete: (id: string) => void }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
@@ -130,9 +131,10 @@ export default function ManuscriptsPage() {
       {/* Admin header */}
       <header className="border-b border-border bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
-          <div className="min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
+            <Logo size={24} />
             <span className="font-serif text-base text-foreground">Hearts & Notes</span>
-            <span className="hidden sm:inline text-xs text-muted-foreground ml-2">— Managing the Archive</span>
+            <span className="hidden sm:inline text-xs text-muted-foreground ml-1">— Managing the Archive</span>
           </div>
           <div className="flex items-center gap-3 sm:gap-4 shrink-0">
             <Link to="/" className="text-xs text-muted-foreground hover:text-foreground transition-colors">

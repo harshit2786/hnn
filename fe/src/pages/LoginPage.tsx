@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import Logo from "../components/Logo";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -29,6 +30,9 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="bg-card border border-border rounded-sm px-10 py-12">
           <div className="text-center mb-10">
+            <div className="flex justify-center mb-4">
+              <Logo size={44} />
+            </div>
             <h1 className="font-serif text-2xl text-foreground mb-2">
               Access the Archive
             </h1>

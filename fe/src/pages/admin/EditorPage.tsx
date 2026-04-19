@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import TipTapEditor from "../../components/TipTapEditor";
 import api from "../../lib/api";
 import type { Post } from "../../types";
+import Logo from "../../components/Logo";
 
 export default function EditorPage() {
   const { id } = useParams<{ id?: string }>();
@@ -67,12 +68,15 @@ export default function EditorPage() {
       {/* Header */}
       <header className="border-b border-border bg-background sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
-          <Link
-            to="/admin"
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0"
-          >
-            ← Manuscripts
-          </Link>
+          <div className="flex items-center gap-2 shrink-0">
+            <Logo size={22} />
+            <Link
+              to="/admin"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              ← Manuscripts
+            </Link>
+          </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
             {lastSaved && (

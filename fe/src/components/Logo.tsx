@@ -1,0 +1,27 @@
+interface Props {
+  size?: number;
+}
+
+export default function Logo({ size = 28 }: Props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      fill="none"
+      width={size}
+      height={size}
+      aria-hidden="true"
+    >
+      <rect width="32" height="32" rx="7" fill="#F0E6D3"/>
+      <path d="M24 5 C20 7 17 10 15 13 C18 9 21 6 24 5Z" fill="#9B5C5C"/>
+      <path d="M24 5 C19 9 16 14 14 18 C17 13 21 9 24 5Z" fill="#9B5C5C"/>
+      <path d="M24 5 C18 11 15 17 13 22 C16 16 20 11 24 5Z" fill="#9B5C5C"/>
+      <path
+        d="M24 5 C17 7 11 14 8 27 L9 26 C11 19 15 13 20 9 C16 14 13 20 11 26 L12 25.5 C14 19 18 13 22 9 C18 14 15 20 13 25 L14 24.5 C16 18 20 12 24 8 C20 13 17 19 16 24 L17 23.5 C19 17 22 11 24 5Z"
+        fill="#7A3535"
+      />
+      <path d="M24 5 Q16 14 8 27" stroke="#5A2525" strokeWidth="0.7" strokeLinecap="round"/>
+      <path d="M8 27 L6 30 L10 27.5 Z" fill="#5A2525"/>
+    </svg>
+  );
+}
