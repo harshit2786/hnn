@@ -69,7 +69,9 @@ export default function EditorPage() {
       <header className="border-b border-border bg-background sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 shrink-0">
-            <Logo size={22} />
+            <Link to="/" className="flex items-center">
+              <Logo size={22} />
+            </Link>
             <Link
               to="/admin"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"

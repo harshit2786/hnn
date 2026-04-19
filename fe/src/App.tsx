@@ -20,7 +20,7 @@ function PublicLayout() {
             © {new Date().getFullYear()} Hearts & Notes
           </p>
           <p className="text-[11px] text-muted-foreground font-serif italic">
-            Written by hand, set in type
+            Adarshi Dubey
           </p>
         </div>
       </footer>

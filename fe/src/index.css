@@ -82,13 +82,13 @@
 .prose-journal {
   font-family: "Playfair Display", Georgia, serif;
   font-size: 1.0625rem;
-  line-height: 1.85;
+  line-height: 1.4;
   color: oklch(0.22 0.01 65);
 }
 .prose-journal h1 { font-size: 2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; }
 .prose-journal h2 { font-size: 1.45rem; font-style: italic; font-weight: 400; margin: 1.75rem 0 0.75rem; }
 .prose-journal h3 { font-size: 1.15rem; font-weight: 700; margin: 1.5rem 0 0.5rem; }
-.prose-journal p { margin: 0 0 1.25rem; min-height: 1.25rem; }
+.prose-journal p { margin: 0 0 0.35rem; min-height: 1.25rem; }
 .prose-journal p:empty { min-height: 1.5em; }
 .prose-journal p:last-child { margin-bottom: 0; }
 .prose-journal blockquote {

@@ -32,7 +32,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden sm:flex items-center gap-7 text-sm">
-          <NavLink to="/" end className={navClass}>Archive</NavLink>
+          <NavLink to="/" end className={navClass}>Collections</NavLink>
           <NavLink to="/about" className={navClass}>About</NavLink>
           {/* <NavLink to="/portfolio" className={navClass}>Portfolio</NavLink> */}
           {user && <NavLink to="/admin" className={navClass}>Manuscripts</NavLink>}
@@ -51,7 +51,7 @@ export default function Navbar() {
       {/* Mobile dropdown */}
       {open && (
         <div className="sm:hidden border-t border-border bg-background px-6 py-4 flex flex-col gap-4 text-sm">
-          <NavLink to="/" end className={navClass} onClick={() => setOpen(false)}>Archive</NavLink>
+          <NavLink to="/" end className={navClass} onClick={() => setOpen(false)}>Collections</NavLink>
           <NavLink to="/about" className={navClass} onClick={() => setOpen(false)}>About</NavLink>
           {/* <NavLink to="/portfolio" className={navClass} onClick={() => setOpen(false)}>Portfolio</NavLink> */}
           {user && (

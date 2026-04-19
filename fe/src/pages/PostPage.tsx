@@ -36,7 +36,7 @@ export default function PostPage() {
         to="/"
         className="inline-block text-xs text-muted-foreground hover:text-foreground transition-colors mb-6 sm:hidden"
       >
-        ← Back to Archive
+        ← Back to Collections
       </Link>
 
       <div className="sm:grid sm:grid-cols-[160px_1fr] sm:gap-12">
@@ -46,7 +46,7 @@ export default function PostPage() {
             to="/"
             className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 mb-10"
           >
-            ← Back to Archive
+            ← Back to Collections
           </Link>
 
           <div className="space-y-5 text-xs">

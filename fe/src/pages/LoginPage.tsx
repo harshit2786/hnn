@@ -34,7 +34,7 @@ export default function LoginPage() {
               <Logo size={44} />
             </div>
             <h1 className="font-serif text-2xl text-foreground mb-2">
-              Access the Archive
+              Access the Collection
             </h1>
             <p className="text-xs text-muted-foreground italic">
               A space for deliberate thought

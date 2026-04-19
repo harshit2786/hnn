@@ -132,7 +132,9 @@ export default function ManuscriptsPage() {
       <header className="border-b border-border bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 min-w-0">
-            <Logo size={24} />
+            <Link to="/">
+              <Logo size={24} />
+            </Link>
             <span className="font-serif text-base text-foreground">Hearts & Notes</span>
             <span className="hidden sm:inline text-xs text-muted-foreground ml-1">— Managing the Archive</span>
           </div>

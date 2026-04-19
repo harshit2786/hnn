@@ -36,7 +36,7 @@ export default function ArchivePage() {
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
       <div className="mb-10 sm:mb-12">
         <p className="text-xs tracking-widest uppercase text-primary mb-3">
-          The Archive
+          The Collection
         </p>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold leading-tight text-foreground mb-4">
           Writings &<br />Reflections.
@@ -49,7 +49,7 @@ export default function ArchivePage() {
 
       {loading && posts.length === 0 ? (
         <div className="text-muted-foreground text-sm py-20 text-center font-serif italic">
-          Opening the archive…
+          Opening the collection…
         </div>
       ) : groups.length === 0 ? (
         <div className="text-muted-foreground text-sm py-20 text-center font-serif italic">
