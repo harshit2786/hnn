@@ -57,8 +57,8 @@ export default function TipTapEditor({ content, onChange }: Props) {
 
   return (
     <div className="border border-border rounded-sm">
-      {/* Toolbar */}
-      <div className="flex items-center gap-0.5 px-3 py-2 border-b border-border bg-muted/40 flex-wrap">
+      {/* Toolbar — sticky below the editor page header */}
+      <div className="sticky top-[92px] lg:top-14 z-10 flex items-center gap-0.5 px-3 py-2 border-b border-border bg-background/95 backdrop-blur-sm flex-wrap rounded-t-sm">
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
           active={editor.isActive("bold")}
